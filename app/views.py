@@ -75,12 +75,6 @@ def get_chats(request):
 @csrf_exempt
 def get_messages(request):
     chat = Chat.objects.get(id=request.POST.get('chat_id'))
-    messages = [MessageSerializer(message) for message in chat.messages.all()]
-    messages = [{
-        'author': message.author.username,
-        'chat': message.chat.name,
-        'text': message.text,
-        'created_at': message.created_at
-    } for message in chat.messages.all().order_by('created_at')]
+    messages = [MessageSerializer(message).data for message in chat.messages.all().order_by('created_at')]
     response = {'messages': messages}
     return JsonResponse(response, status=200)

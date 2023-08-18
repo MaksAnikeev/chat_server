@@ -51,7 +51,7 @@ print(response.json())
 '''Получаем все сообщения чата'''
 url = 'http://127.0.0.1:9000/messages/get'
 payload = {
-    'chat_id': 7,
+    'chat_id': 6,
 }
 response = requests.post(url, data=payload)
 response.raise_for_status()
