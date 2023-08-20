@@ -65,16 +65,16 @@ def add_message(request):
 
 
 @csrf_exempt
+@api_view(['POST'])
 def get_chats(request):
     user = User.objects.get(id=request.POST.get('user_id'))
-    chats = [chat.name for chat in user.chats.all()]
-    response = {'chats': chats}
-    return JsonResponse(response, status=200)
+    response = UserSerializer(user)
+    return Response(response.data, status=200)
 
 
 @csrf_exempt
+@api_view(['POST'])
 def get_messages(request):
     chat = Chat.objects.get(id=request.POST.get('chat_id'))
-    messages = [MessageSerializer(message).data for message in chat.messages.all().order_by('created_at')]
-    response = {'messages': messages}
-    return JsonResponse(response, status=200)
+    response = ChatSerializer(chat)
+    return Response(response.data, status=200)

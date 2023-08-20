@@ -3,23 +3,20 @@ from .models import User, Chat, Message
 
 
 class UserSerializer(serializers.ModelSerializer):
+    chats = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
         fields = '__all__'
 
 
-class ChatSerializer(serializers.ModelSerializer):
-    users = serializers.CharField
-
+class MessageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chat
+        model = Message
         fields = '__all__'
 
 
-class MessageSerializer(serializers.ModelSerializer):
-    chat = serializers.CharField
-    author = serializers.CharField
-
+class ChatSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True, read_only=True)
     class Meta:
-        model = Message
+        model = Chat
         fields = '__all__'

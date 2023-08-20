@@ -41,11 +41,11 @@ print(response.json())
 '''Получаем все чаты юзера'''
 url = 'http://127.0.0.1:9000/chats/get'
 payload = {
-    'user_id': 17,
+    'user_id': 12,
 }
 response = requests.post(url, data=payload)
 response.raise_for_status()
-print(response.json())
+pprint(response.json())
 
 
 '''Получаем все сообщения чата'''
